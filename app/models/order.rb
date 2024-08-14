@@ -4,15 +4,11 @@ class Order < ApplicationRecord
   has_many :items, through: :ordered_lists
   accepts_nested_attributes_for :ordered_lists
 
-  def update_total_quantity_with_lock
-    ActiveRecord::Base transaction do
+  def update_total_quantity
     self.ordered_lists.each do |line_item|
-      item = Item.find_by(id: line_item.item_id)
-      item.with_lock do
+      item = Item.lock.find_by(id: line_item.item_id)
       item.total_quantity += line_item.quantity
       item.save!
-      end
-    end
     end
   end
 end
