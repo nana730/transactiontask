@@ -15,10 +15,11 @@ class OrdersController < ApplicationController
       @order.save!
           # update_total_quantityメソッドは、注文された発注量を総量に反映するメソッドであり、Orderモデルに定義されています。
       @order.update_total_quantity
+      binding.irb
     end
     redirect_to orders_path
-  rescue ActiveRecord::RecordInvalid
-    render:new
+  # rescue ActiveRecord::RecordInvalid
+  #   render:new
   end
 
 private

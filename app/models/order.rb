@@ -1,6 +1,6 @@
 class Order < ApplicationRecord
   belongs_to :user
-  has_many :ordered_lists, dependent: :destroy
+  has_many :ordered_lists
   has_many :items, through: :ordered_lists
   accepts_nested_attributes_for :ordered_lists
 
